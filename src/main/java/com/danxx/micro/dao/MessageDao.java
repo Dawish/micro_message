@@ -1,5 +1,6 @@
 package com.danxx.micro.dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,7 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
 import com.danxx.micro.bean.Message;
+import com.danxx.micro.db.DBAccess;
 
 /**
  * 
@@ -16,6 +20,26 @@ import com.danxx.micro.bean.Message;
  * @date 2018.5.30
  */
 public class MessageDao {
+	
+	public List<Message> queryMessageListByBatis(String command, String description) {
+		
+		DBAccess dbAccess = new DBAccess();
+		SqlSession sqlSession = null;
+		List<Message> messageList = new ArrayList<>();
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			messageList = sqlSession.selectList("Message.queryMessageList");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(sqlSession!=null) {
+				sqlSession.close();
+			}
+		}
+		
+		return messageList;
+	}
 
 	public List<Message> queryMessageList(String command, String description) {
 
