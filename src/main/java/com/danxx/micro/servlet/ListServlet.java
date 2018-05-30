@@ -27,6 +27,9 @@ import com.sun.org.glassfish.external.statistics.annotations.Reset;
  */
 public class ListServlet extends HttpServlet{
 
+	/**
+	 * http://localhost:8080/micro_message/list.do
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		

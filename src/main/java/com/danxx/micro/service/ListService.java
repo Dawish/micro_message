@@ -13,7 +13,8 @@ import com.danxx.micro.dao.MessageDao;
 public class ListService {
 	
 	public List<Message> queryMessageList(String command, String description){
-		return new MessageDao().queryMessageList(command, description);
+		//return new MessageDao().queryMessageList(command, description);
+		return new MessageDao().queryMessageListByBatis(command, description);
 	}
 	
 }
