@@ -29,8 +29,14 @@
     <result column="CONTENT" jdbcType="VARCHAR" property="content"/>
   </resultMap>
 
-  <select id="queryMessageList" parameterType="long" resultMap="MessageResult">
+  <select id="queryMessageList" parameterType="com.danxx.micro.bean.Message" resultMap="MessageResult">
     select ID,COMMAND,DESCRIPTION,CONTENT from message where 1=1
+    <if test="command!=null and !&quot;&quot;.equals(command.trim())">
+    	and COMMAND=#{command}
+    </if>
+    <if test="description!=null and !&quot;&quot;.equals(description.trim())">
+    	and DESCRIPTION like '%' #{description} '%'
+    </if>
   </select>
 
   <!-- <select id="version" parameterType="long" resultType="int">
