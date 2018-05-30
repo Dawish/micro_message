@@ -3,7 +3,7 @@ package com.danxx.micro.bean;
 /**
  * 消息实体类
  * @author danxx
- *
+ * @Date 2018.5.30
  */
 public class Message {
 	
