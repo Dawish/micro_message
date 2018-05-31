@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.danxx.micro.bean.Message;
 import com.danxx.micro.service.ListService;
 import com.sun.org.glassfish.external.statistics.annotations.Reset;
@@ -26,12 +28,14 @@ import com.sun.org.glassfish.external.statistics.annotations.Reset;
  *
  */
 public class ListServlet extends HttpServlet{
-
+	Logger logger = Logger.getLogger(ListServlet.class);
 	/**
 	 * http://localhost:8080/micro_message/list.do
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		logger.info("ListServlet invoke!");
 		
 		req.setCharacterEncoding("UTF-8");
 		//接受页面值

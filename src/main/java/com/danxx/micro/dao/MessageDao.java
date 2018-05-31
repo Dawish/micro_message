@@ -71,6 +71,30 @@ public class MessageDao {
 		}
 	}
 	
+	
+	/**
+	 * 
+	 * @param id
+	 */
+	public void deleteBatch(List<Integer> ids) {
+		
+		DBAccess dbAccess = new DBAccess();
+		SqlSession sqlSession = null;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			sqlSession.delete("Message.deleteBatch",ids);
+			//删除需要提交事务
+			sqlSession.commit();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(sqlSession!=null) {
+				sqlSession.close();
+			}
+		}
+	}
+	
 	public List<Message> queryMessageList(String command, String description) {
 
 		List<Message> messagesList = new ArrayList<Message>();

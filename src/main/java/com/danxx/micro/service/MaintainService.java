@@ -1,5 +1,8 @@
 package com.danxx.micro.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.danxx.micro.dao.MessageDao;
 
 /**
@@ -16,6 +19,18 @@ public class MaintainService {
 		}
 	}
 	
-	
+	public void deleteBatch(String[] ids){
+		
+		List<Integer> deIds = new ArrayList<>();
+		if(deIds == null || deIds.size() <= 0) {
+			return;
+		}
+		for(String id : ids) {
+			if(id!=null && !"".equals(id)) {
+				deIds.add(Integer.valueOf(id));
+			}
+		}
+		new MessageDao().deleteBatch(deIds);
+	}
 	
 }

@@ -15,33 +15,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.danxx.micro.bean.Message;
-import com.danxx.micro.service.ListService;
+import org.apache.log4j.Logger;
 import com.danxx.micro.service.MaintainService;
-import com.sun.org.glassfish.external.statistics.annotations.Reset;
 
 /**
- * 删除一条
+ * 批量删除
  * @author danxx
  * @Date 2018.5.31
  *
  */
-public class DeleteOneServlet extends HttpServlet{
-
+public class DeleteBatchServlet extends HttpServlet{
+	
+	
+	Logger logger = Logger.getLogger(DeleteBatchServlet.class);
+	
 	/**
 	 * http://localhost:8080/micro_message/list.do
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		logger.info("DeleteBatchServlet invoke!");
+		
 		req.setCharacterEncoding("UTF-8");
 		//接受页面值
-		String id = req.getParameter("id");
-		//页面传值
-		req.setAttribute("id", id);
+		String[] ids = req.getParameterValues("id");
 		//查询数据库并传值给页面
 		MaintainService maintainService = new MaintainService();
-		maintainService.deleteOne(id);
+		maintainService.deleteBatch(ids);
 		/**控制跳转到控制器*/
 		req.getRequestDispatcher("/list.do").forward(req, resp);
 		
