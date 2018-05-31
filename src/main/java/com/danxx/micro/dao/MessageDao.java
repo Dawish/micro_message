@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.log4j.Logger;
 
 import com.danxx.micro.bean.Message;
 import com.danxx.micro.db.DBAccess;
@@ -20,6 +21,8 @@ import com.danxx.micro.db.DBAccess;
  * @date 2018.5.30
  */
 public class MessageDao {
+	
+	Logger logger = Logger.getLogger(MessageDao.class);
 	
 	public List<Message> queryMessageListByBatis(String command, String description) {
 		
@@ -43,7 +46,31 @@ public class MessageDao {
 		
 		return messageList;
 	}
-
+	
+	/**
+	 * 
+	 * @param id
+	 */
+	public void deleteOne(int id) {
+		
+		DBAccess dbAccess = new DBAccess();
+		SqlSession sqlSession = null;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			sqlSession.delete("Message.deleteOne",id);
+			//删除需要提交事务
+			sqlSession.commit();
+			logger.info("deleteOne commit id : "+id);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(sqlSession!=null) {
+				sqlSession.close();
+			}
+		}
+	}
+	
 	public List<Message> queryMessageList(String command, String description) {
 
 		List<Message> messagesList = new ArrayList<Message>();

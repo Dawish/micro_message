@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.danxx.micro.bean.Message;
 import com.danxx.micro.service.ListService;
+import com.danxx.micro.service.MaintainService;
 import com.sun.org.glassfish.external.statistics.annotations.Reset;
 
 /**
@@ -25,7 +26,7 @@ import com.sun.org.glassfish.external.statistics.annotations.Reset;
  * @Date 2018.5.30
  *
  */
-public class ListServlet extends HttpServlet{
+public class DeleteOneServlet extends HttpServlet{
 
 	/**
 	 * http://localhost:8080/micro_message/list.do
@@ -35,16 +36,14 @@ public class ListServlet extends HttpServlet{
 		
 		req.setCharacterEncoding("UTF-8");
 		//接受页面值
-		String command = req.getParameter("command");
-		String description = req.getParameter("description");
+		String id = req.getParameter("id");
 		//页面传值
-		req.setAttribute("command", command);
-		req.setAttribute("description", description);
+		req.setAttribute("id", id);
 		//查询数据库并传值给页面
-		List<Message> messagesList = new ListService().queryMessageList(command, description);
-		req.setAttribute("messagesList", messagesList);
-		/**控制跳转到jsp页面*/
-		req.getRequestDispatcher("/WEB-INF/jsp/back/list.jsp").forward(req, resp);
+		MaintainService maintainService = new MaintainService();
+		maintainService.deleteOne(id);
+		/**控制跳转到控制器*/
+		req.getRequestDispatcher("/list.do").forward(req, resp);
 		
 	}
 

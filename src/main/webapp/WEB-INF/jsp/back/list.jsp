@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<%-- <td>${message.content}</td> --%>
 									<td>
 										<a href="#">修改</a>&nbsp;&nbsp;&nbsp;
-										<a href="#">删除</a>
+										<a href="${basePath}deleteOne.do?id=${message.id}">删除</a>
 									</td>
 								</tr>
 								
