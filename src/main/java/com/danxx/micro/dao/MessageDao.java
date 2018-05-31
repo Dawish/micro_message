@@ -77,7 +77,7 @@ public class MessageDao {
 	 * @param id
 	 */
 	public void deleteBatch(List<Integer> ids) {
-		
+		logger.info("MessageDao deleteBatch 1 ...");
 		DBAccess dbAccess = new DBAccess();
 		SqlSession sqlSession = null;
 		try {
@@ -85,6 +85,7 @@ public class MessageDao {
 			sqlSession.delete("Message.deleteBatch",ids);
 			//删除需要提交事务
 			sqlSession.commit();
+			logger.info("MessageDao deleteBatch 2 ...");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
