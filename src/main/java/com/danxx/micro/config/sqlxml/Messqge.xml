@@ -51,6 +51,21 @@
    	)
   </delete>
 
+  <insert id="addOne" parameterType="com.danxx.micro.bean.Message" useGeneratedKeys="true">
+    INSERT INTO message
+    ( 
+    command,
+    description,
+    content
+    )
+    VALUES
+    ( 
+    #{command, jdbcType=VARCHAR},
+    #{description, jdbcType=VARCHAR},
+    #{content, jdbcType=VARCHAR}
+    )
+  </insert>
+
   <!-- <select id="version" parameterType="long" resultType="int">
     SELECT version FROM user WHERE id = #{id,jdbcType=INTEGER}
   </select>

@@ -3,6 +3,7 @@ package com.danxx.micro.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.danxx.micro.bean.Message;
 import com.danxx.micro.dao.MessageDao;
 
 /**
@@ -31,6 +32,12 @@ public class MaintainService {
 			}
 		}
 		new MessageDao().deleteBatch(deIds);
+	}
+	
+	public void addOne(Message message){
+		if(message != null) {
+			new MessageDao().addOne(message);
+		}
 	}
 	
 }
