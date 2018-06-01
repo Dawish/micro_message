@@ -7,3 +7,12 @@ function deleteBatch(basePath) {
 	$("#mainForm").submit();
 }
 
+/**
+ * 调转到添加页面
+ * @param basePath
+ * @returns
+ */
+function toAddPage(basePath) {
+	$("#mainForm").attr("action", basePath + "addOne.do");
+	$("#mainForm").submit();
+}

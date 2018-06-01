@@ -40,6 +40,11 @@
   	<servlet-class>com.danxx.micro.servlet.DeleteBatchServlet</servlet-class>
   </servlet>
   
+   <servlet>
+  	<servlet-name>AddOneServlet</servlet-name>
+  	<servlet-class>com.danxx.micro.servlet.AddOneServlet</servlet-class>
+  </servlet>
+  
   <!-- 映射匹配 -->
   <servlet-mapping>
   	<servlet-name>ListServlet</servlet-name>
@@ -56,5 +61,9 @@
   	<url-pattern>/deleteBatch.do</url-pattern>
   </servlet-mapping>
   
+ <servlet-mapping>
+  	<servlet-name>AddOneServlet</servlet-name>
+  	<url-pattern>/addOne.do</url-pattern>
+  </servlet-mapping>
   
 </web-app>
