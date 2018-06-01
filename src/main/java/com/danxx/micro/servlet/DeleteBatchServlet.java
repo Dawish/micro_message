@@ -40,7 +40,9 @@ public class DeleteBatchServlet extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
 		//接受页面值
 		String[] ids = req.getParameterValues("id");
-		logger.info("DeleteBatchServlet id size : "+ids.length);
+		if(ids!=null) {
+			logger.info("DeleteBatchServlet id size : "+ids.length);
+		}
 		//查询数据库并传值给页面
 		MaintainService maintainService = new MaintainService();
 		maintainService.deleteBatch(ids);
