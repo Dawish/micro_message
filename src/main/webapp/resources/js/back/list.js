@@ -16,3 +16,4 @@ function toAddPage(basePath) {
 	$("#mainForm").attr("action", basePath + "addOne.do");
 	$("#mainForm").submit();
 }
+
