@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.danxx.micro.bean.Command;
 import com.danxx.micro.bean.Message;
+import com.danxx.micro.dao.CommandDao;
 import com.danxx.micro.dao.MessageDao;
+import com.danxx.micro.service.CommandService;
 
 public class BatisTest {
 	
@@ -26,6 +29,20 @@ public class BatisTest {
 		for(Message message : messageList) {
 			System.out.println( " message command : "+message.getCommand());
 		}
+	}
+    
+    @Test
+	public void commandTest() {
+    	CommandDao commandDao = new CommandDao();
+    	
+		List<Command> commandList = commandDao.queryCommandList("段子", "");
+		for(Command command : commandList) {
+			System.out.println( " ====command list size====  : "+command.getContentList().size());
+		}
+		
+		CommandService commandService = new CommandService();
+		String result = commandService.queryByCommand("段子");
+		System.out.println( " ====command result====  : "+result);
 	}
 	
 }

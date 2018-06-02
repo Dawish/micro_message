@@ -42,6 +42,8 @@
 
 	<mappers>
 		<mapper resource="com/danxx/micro/config/sqlxml/Messqge.xml" />
+		<mapper resource="com/danxx/micro/config/sqlxml/Command.xml" />
+		<mapper resource="com/danxx/micro/config/sqlxml/CommandContent.xml" />
 	</mappers>
 
 </configuration>
