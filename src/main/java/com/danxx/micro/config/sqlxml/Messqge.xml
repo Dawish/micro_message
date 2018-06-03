@@ -30,13 +30,16 @@
   </resultMap>
 
   <select id="queryMessageList" parameterType="com.danxx.micro.bean.Message" resultMap="MessageResult">
-    select ID,COMMAND,DESCRIPTION,CONTENT from message where 1=1
-    <if test="command!=null and !&quot;&quot;.equals(command.trim())">
-    	AND COMMAND=#{command}
-    </if>
-    <if test="description!=null and !&quot;&quot;.equals(description.trim())">
-    	AND DESCRIPTION LIKE '%' #{description} '%'
-    </if>
+    select ID,COMMAND,DESCRIPTION,CONTENT from message
+    <where>
+	    <if test="command!=null and !&quot;&quot;.equals(command.trim())">
+	    	AND COMMAND=#{command}
+	    </if>
+	    
+	    <if test="description!=null and !&quot;&quot;.equals(description.trim())">
+	    	AND DESCRIPTION LIKE '%' #{description} '%'
+	    </if>
+    </where>
   </select>
 	
   <delete id="deleteOne" parameterType="int">
