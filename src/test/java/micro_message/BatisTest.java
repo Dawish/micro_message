@@ -33,16 +33,12 @@ public class BatisTest {
     
     @Test
 	public void commandTest() {
-    	CommandDao commandDao = new CommandDao();
-    	
-		List<Command> commandList = commandDao.queryCommandList("段子", "");
-		for(Command command : commandList) {
-			System.out.println( " ====command list size====  : "+command.getContentList().size());
-		}
-		
 		CommandService commandService = new CommandService();
-		String result = commandService.queryByCommand("段子");
-		System.out.println( " ====command result====  : "+result);
+		String result1 = commandService.queryByCommand("帮助");
+		System.out.println( " ====command result====  : "+result1);
+		
+		String result2 = commandService.queryByCommand("祝福");
+		System.out.println( " ====command result====  : "+result2);
 	}
 	
 }

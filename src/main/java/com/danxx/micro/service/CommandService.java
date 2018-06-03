@@ -28,10 +28,11 @@ public class CommandService {
 				for(int i=0;i<commandList.size();i++) {
 					if(i != 0) {
 						/**增加换行*/
-						stringBuilder.append("<br/>");
+						stringBuilder.append("\r\n");
 					}
 					stringBuilder.append("回复[" + commandList.get(i).getName() + "]可以查看" + commandList.get(i).getDescription());
 				}
+				return stringBuilder.toString();
 			}
 		}
 		
