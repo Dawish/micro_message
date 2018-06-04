@@ -34,7 +34,9 @@ public class MessageDao {
 		message.setDescription(description);
 		try {
 			sqlSession = dbAccess.getSqlSession();
-			messageList = sqlSession.selectList("Message.queryMessageList",message);
+			//messageList = sqlSession.selectList("Message.queryMessageList",message);
+			IMessage iMessage = sqlSession.getMapper(IMessage.class);
+			messageList = iMessage.queryMessageList(message);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,7 +59,9 @@ public class MessageDao {
 		SqlSession sqlSession = null;
 		try {
 			sqlSession = dbAccess.getSqlSession();
-			sqlSession.delete("Message.deleteOne",id);
+			//sqlSession.delete("Message.deleteOne",id);
+			IMessage iMessage = sqlSession.getMapper(IMessage.class);
+			iMessage.deleteOne(id);
 			//删除需要提交事务
 			sqlSession.commit();
 			logger.info("deleteOne commit id : "+id);
@@ -82,7 +86,9 @@ public class MessageDao {
 		SqlSession sqlSession = null;
 		try {
 			sqlSession = dbAccess.getSqlSession();
-			sqlSession.delete("Message.deleteBatch",ids);
+			//sqlSession.delete("Message.deleteBatch",ids);
+			IMessage iMessage = sqlSession.getMapper(IMessage.class);
+			iMessage.deleteBatch(ids);
 			//删除需要提交事务
 			sqlSession.commit();
 			logger.info("MessageDao deleteBatch 2 ...");
@@ -101,7 +107,9 @@ public class MessageDao {
 		SqlSession sqlSession = null;
 		try {
 			sqlSession = dbAccess.getSqlSession();
-			sqlSession.insert("Message.addOne",message);
+			//sqlSession.insert("Message.addOne",message);
+			IMessage iMessage = sqlSession.getMapper(IMessage.class);
+			iMessage.addOne(message);
 			//删除需要提交事务
 			sqlSession.commit();
 		} catch (IOException e) {
