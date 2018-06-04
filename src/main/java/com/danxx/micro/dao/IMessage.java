@@ -6,7 +6,7 @@ import com.danxx.micro.bean.Message;
 
 /**
  * Message数据库操作接口
- * 为了避免手写namespace 和 无法预知的数据库返回值
+ * 为了避免手写namespace 和 无法预知的数据库返回类型
  * @author danxx
  *
  */
