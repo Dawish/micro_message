@@ -29,15 +29,42 @@
     <result column="CONTENT" jdbcType="VARCHAR" property="content"/>
   </resultMap>
 
-  <select id="queryMessageList" parameterType="com.danxx.micro.bean.Message" resultMap="MessageResult">
-    select ID,COMMAND,DESCRIPTION,CONTENT from message
+  <select id="queryMessageList" parameterType="java.util.Map" resultMap="MessageResult">
+    select <include refid="columns"/> from message
     <where>
-	    <if test="command!=null and !&quot;&quot;.equals(command.trim())">
-	    	AND COMMAND=#{command}
+    	<if test="message.command != null and !&quot;&quot;.equals(message.command.trim())">
+	    	and COMMAND=#{message.command}
 	    </if>
-	    
-	    <if test="description!=null and !&quot;&quot;.equals(description.trim())">
-	    	AND DESCRIPTION LIKE '%' #{description} '%'
+	    <if test="message.description != null and !&quot;&quot;.equals(message.description.trim())">
+	    	and DESCRIPTION like '%' #{message.description} '%'
+	    </if>
+    </where>
+    order by ID limit #{page.dbIndex},#{page.dbNumber}
+  </select>
+	
+  <select id="queryMessageListByPage" parameterType="java.util.Map" resultMap="MessageResult">
+   select <include refid="columns"></include> from message
+   <where>
+    <if test="message.command!=null and !&quot;&quot;.equals(message.command.trim())">
+    	AND COMMAND=#{message.command}
+    </if>
+    
+    <if test="message.description!=null and !&quot;&quot;.equals(message.description.trim())">
+    	AND DESCRIPTION LIKE '%' #{message.description} '%'
+    </if>
+   </where>
+   order by ID  
+ </select>
+	
+	
+  <select id="count"  parameterType="com.danxx.micro.bean.Message" resultType="int">
+  	select count(*) from message
+    <where>
+    	<if test="command != null and !&quot;&quot;.equals(command.trim())">
+	    	and COMMAND=#{command}
+	    </if>
+	    <if test="description != null and !&quot;&quot;.equals(description.trim())">
+	    	and DESCRIPTION like '%' #{description} '%'
 	    </if>
     </where>
   </select>
@@ -68,6 +95,9 @@
     #{content, jdbcType=VARCHAR}
     )
   </insert>
+	
+  <!-- sql代码片段，别的地方可以引用，避免重复代码 -->
+  <sql id="columns">ID,COMMAND,DESCRIPTION,CONTENT</sql>
 
   <!-- <select id="version" parameterType="long" resultType="int">
     SELECT version FROM user WHERE id = #{id,jdbcType=INTEGER}

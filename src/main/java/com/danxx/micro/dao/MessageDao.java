@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
@@ -20,23 +22,26 @@ import com.danxx.micro.db.DBAccess;
  * @author danxx
  * @date 2018.5.30
  */
-public class MessageDao {
+public class MessageDao implements IMessage{
 	
 	Logger logger = Logger.getLogger(MessageDao.class);
 	
-	public List<Message> queryMessageListByBatis(String command, String description) {
+	/**
+	 * 
+	 * @param command
+	 * @param description
+	 * @return
+	 */
+	public List<Message> queryMessageList(Map<String,Object> parameter) {
 		
 		DBAccess dbAccess = new DBAccess();
 		SqlSession sqlSession = null;
 		List<Message> messageList = new ArrayList<>();
-		Message message = new Message();
-		message.setCommand(command);
-		message.setDescription(description);
 		try {
 			sqlSession = dbAccess.getSqlSession();
 			//messageList = sqlSession.selectList("Message.queryMessageList",message);
 			IMessage iMessage = sqlSession.getMapper(IMessage.class);
-			messageList = iMessage.queryMessageList(message);
+			messageList = iMessage.queryMessageList(parameter);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,6 +53,53 @@ public class MessageDao {
 		
 		return messageList;
 	}
+	
+	/**
+	 * 根绝当前页码查找
+	 */
+	public List<Message> queryMessageListByPage(Map<String,Object> parameter) {
+		DBAccess dbAccess = new DBAccess();
+		List<Message> messageList = new ArrayList<Message>();
+		SqlSession sqlSession = null;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			// 通过sqlSession执行SQL语句
+			IMessage imessage = sqlSession.getMapper(IMessage.class);
+			messageList = imessage.queryMessageListByPage(parameter);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+		return messageList;
+	}
+	
+	/**
+	 * 根据查询条件查询消息列表的条数
+	 */
+	public int count(Message message) {
+		DBAccess dbAccess = new DBAccess();
+		SqlSession sqlSession = null;
+		int result = 0;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			// 通过sqlSession执行SQL语句
+			IMessage imessage = sqlSession.getMapper(IMessage.class);
+			result = imessage.count(message);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+		return result;
+	}
+	
 	
 	/**
 	 * 
@@ -102,6 +154,9 @@ public class MessageDao {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void addOne(Message message) {
 		DBAccess dbAccess = new DBAccess();
 		SqlSession sqlSession = null;
@@ -122,7 +177,13 @@ public class MessageDao {
 		}
 	}
 	
-	public List<Message> queryMessageList(String command, String description) {
+	/**
+	 * 
+	 * @param command
+	 * @param description
+	 * @return
+	 */
+	public List<Message> queryMessageListByADBC(String command, String description) {
 
 		List<Message> messagesList = new ArrayList<Message>();
 		/* jdbc链接数据库 **/
@@ -169,5 +230,6 @@ public class MessageDao {
 
 		return messagesList;
 	}
+	
 
 }
