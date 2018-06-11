@@ -16,7 +16,7 @@ import com.danxx.micro.entity.Page;
 public class ListService {
 	
 	/**
-	 * 条件查找
+	 * 手动分页
 	 * @param command
 	 * @param description
 	 * @return
@@ -39,7 +39,7 @@ public class ListService {
 	}
 	
 	/**
-	 * 条件分页查找
+	 * 拦截器实现分页
 	 * @param command
 	 * @param description
 	 * @param page

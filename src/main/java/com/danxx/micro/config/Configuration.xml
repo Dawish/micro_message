@@ -23,7 +23,13 @@
 	<settings>
 		<setting name="logImpl" value="LOG4J" />
 	</settings>
-
+	
+  <plugins>
+  	<plugin interceptor="com.danxx.micro.interceptor.PageInterceptor">
+  		<property name="test" value="abc"/>
+  	</plugin>
+  </plugins>
+	
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC">
